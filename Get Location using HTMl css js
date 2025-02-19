@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Current Location</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #location {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Your Current Location</h1>
+  <button onclick="getLocation()">Get Location</button>
+  <div id="location"></div>
+
+  <script>
+    function getLocation() {
+      const locationElement = document.getElementById('location');
+      
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            locationElement.innerHTML = `Latitude: ${latitude}<br>Longitude: ${longitude}`;
+          },
+          (error) => {
+            locationElement.innerHTML = `Error: ${error.message}`;
+          }
+        );
+      } else {
+        locationElement.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+  </script>
+</body>
+</html>
